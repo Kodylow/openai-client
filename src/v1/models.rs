@@ -1,9 +1,13 @@
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
-use serde::{Serialize, Deserialize};
 
 // https://platform.openai.com/docs/models/overview
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum OpenAIModel {
+    #[serde(rename = "gpt-4-1106-preview")]
+    Gpt4_1106Preview,
+    #[serde(rename = "gpt-4-vision-preview")]
+    Gpt4VisionPreview,
     #[serde(rename = "gpt-4")]
     Gpt4,
     #[serde(rename = "gpt-4-0613")]
@@ -28,8 +32,12 @@ pub enum OpenAIModel {
 
 impl Display for OpenAIModel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}",
+        write!(
+            f,
+            "{}",
             match self {
+                OpenAIModel::Gpt4_1106Preview => "gpt-4-1106-preview",
+                OpenAIModel::Gpt4VisionPreview => "gpt-4-vision-preview",
                 OpenAIModel::Gpt4 => "gpt-4",
                 OpenAIModel::Gpt4_0613 => "gpt-4-0613",
                 OpenAIModel::Gpt4_32K => "gpt-4-32k",
